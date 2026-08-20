@@ -30,31 +30,43 @@
     </div>
 
     <!-- 2. Bagian Konten Kanan -->
-        <!-- 2. Bagian Konten Kanan (Desain Baru yang Sudah Dihias) -->
+    <!-- 2. Bagian Konten Kanan (Desain Baru yang Sudah Dihias) -->
     <div class="main-content">
-        
+
         <!-- Judul Halaman dan Tombol Tambah Data -->
         <div class="content-header">
             <div>
                 <h2 style="margin-bottom: 5px;">Data Pelanggan</h2>
-                <p style="margin: 0; color: #64748b; font-size: 0.9rem;">Total terdaftar: <span style="background: #e2e8f0; padding: 2px 8px; border-radius: 6px; font-weight: bold; color: #1e3a8a;">3 Orang</span></p>
+                <p style="margin: 0; color: #64748b; font-size: 0.9rem;">Total terdaftar: <span
+                        style="background: #e2e8f0; padding: 2px 8px; border-radius: 6px; font-weight: bold; color: #1e3a8a;">3
+                        Orang</span></p>
             </div>
             <a href="#" class="btn-primary-custom">➕ Tambah Pelanggan</a>
         </div>
-        
+
         <!-- Tabel Data Pelanggan -->
+        <!-- Tabel Data Pelanggan dengan Fitur Tambahan Ekspor & Modal -->
         <div class="table-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-                <div class="table-title" style="margin-bottom: 0;">Daftar Pelanggan Terdaftar</div>
-                
-                <!-- Kotak Cari Data Pelanggan -->
-                <div class="search-pelanggan">
+
+            <!-- Mengubah tombol Tambah di atas agar nge-link ke ID Modal (#modal-tambah) -->
+            <script>
+                // Trik mengubah link tombol tambah pelanggan di atas secara otomatis tanpa bongkar kode atas
+                document.querySelector('.btn-primary-custom').setAttribute('href', '#modal-tambah');
+            </script>
+
+            <!-- Baris Fitur Aksi (Tombol Cetak & Kolom Cari) -->
+            <div class="table-actions-wrapper">
+                <div class="export-buttons">
+                    <a href="#" class="btn-export">📄 Cetak PDF</a>
+                    <a href="#" class="btn-export">📊 Ekspor Excel</a>
+                </div>
+
+                <div class="search-pelanggan" style="margin-bottom: 0;">
                     <input type="text" placeholder="Cari nama atau nomor WA...">
                 </div>
             </div>
 
             <div class="table-responsive">
-                <!-- Ditambahkan kelas table-hover-custom untuk efek baris premium -->
                 <table class="table table-hover-custom">
                     <thead>
                         <tr>
@@ -103,6 +115,35 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div> <!-- Batas Akhir .main-content -->
+
+
+    <!-- ==================== STRUKTUR KOTAK FORM POP-UP (MODAL) ==================== -->
+    <div id="modal-tambah" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Tambah Pelanggan Baru</h3>
+                <a href="#" class="modal-close">&times;</a>
+            </div>
+            <form action="#">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" placeholder="Masukkan nama pelanggan" required>
+                </div>
+                <div class="form-group">
+                    <label>Nomor WhatsApp</label>
+                    <input type="tel" placeholder="Contoh: 081234567xxx" required>
+                </div>
+                <div class="form-group">
+                    <label>Alamat Rumah</label>
+                    <textarea rows="3" placeholder="Masukkan alamat lengkap pelanggan" required></textarea>
+                </div>
+                <div style="text-align: right; margin-top: 25px;">
+                    <a href="#" class="btn-export" style="margin-right: 8px; border-radius: 10px;">Batal</a>
+                    <button type="submit" class="btn-primary-custom" style="padding: 10px 24px;">Simpan Data</button>
+                </div>
+            </form>
         </div>
     </div>
 
