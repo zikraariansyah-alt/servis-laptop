@@ -236,3 +236,43 @@ body {
     color: #3b82f6;
     margin-top: 20px;
 }
+
+/* ==================== HALAMAN DATA PELANGGAN ==================== */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.btn-primary-custom {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    transition: all 0.2s ease;
+}
+
+.btn-primary-custom:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(59, 130, 246, 0.3);
+}
+
+.btn-action {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.btn-edit { background-color: #eff6ff; color: #3b82f6; }
+.btn-delete { background-color: #fee2e2; color: #ef4444; }
