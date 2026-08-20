@@ -1,13 +1,26 @@
-/* Isi di dalam file style.css */
-
 :root {
-    --bg-sidebar: #0f172a;       /* Warna dasar gelap premium */
-    --text-muted: #94a3b8;       /* Warna teks menu biasa */
-    --text-active: #3b82f6;      /* Warna teks saat menu aktif / di-hover */
-    --bg-hover: rgba(59, 130, 246, 0.08); /* Latar belakang transparan saat hover */
+    --bg-sidebar: #0f172a;       
+    --text-muted: #94a3b8;       
+    --text-active: #3b82f6;      
+    --bg-hover: rgba(59, 130, 246, 0.08); 
+    --primary-color: #1e3a8a; 
+    --secondary-color: #3b82f6; 
+    --bg-light: #f8fafc;
 }
 
-/* Kotak Sidebar Utama */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+    display: flex;
+}
+
+/* ==================== SIDEBAR LEFT ==================== */
 .sidebar {
     width: 260px;
     height: 100vh;
@@ -19,9 +32,9 @@
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
+    z-index: 100;
 }
 
-/* Desain Logo / Nama Toko di Atas */
 .sidebar-brand {
     margin-bottom: 35px;
     padding-left: 10px;
@@ -41,44 +54,39 @@
     margin: 0;
 }
 
-/* Wadah Menu Navigasi */
 .nav-menu {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-/* Desain Tombol Menu Link */
 .nav-link {
     color: var(--text-muted);
     padding: 14px 16px;
-    border-radius: 12px;
+    border-radius: 12px;        
     font-weight: 600;
     font-size: 0.95rem;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 14px;                  
     text-decoration: none;
-    transition: all 0.25s ease;
+    transition: all 0.25s ease; 
 }
 
-/* Efek saat Kursor Menyentuh Menu (Hover) */
 .nav-link:hover {
     background-color: var(--bg-hover);
     color: var(--text-active);
-    transform: translateX(4px); /* Bergeser sedikit ke kanan */
+    transform: translateX(4px); 
 }
 
-/* Tampilan Menu yang Sedang Aktif / Terbuka */
 .nav-link.active {
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
     color: #ffffff !important;
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
 }
 
-/* Tombol Logout Khusus di Bagian Bawah */
 .nav-link-logout {
-    margin-top: auto;
+    margin-top: auto; 
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     padding-top: 20px;
     border-radius: 0;
@@ -88,3 +96,72 @@
     background-color: rgba(239, 68, 68, 0.1);
     color: #ef4444;
 }
+
+/* ==================== CONTENT RIGHT ==================== */
+.main-content {
+    margin-left: 260px; 
+    padding: 40px;
+    width: calc(100% - 260px);
+    background-color: #f8fafc; 
+    min-height: 100vh;
+}
+
+.main-content h2 {
+    font-weight: 700;
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 24px; 
+    margin-bottom: 35px;
+}
+
+.stat-card {
+    background-color: #ffffff;
+    border-radius: 16px; 
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px); 
+    box-shadow: 0 10px 25px rgba(30, 58, 138, 0.05); 
+}
+
+.stat-title {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+
+.icon-total { background-color: #eff6ff; color: #3b82f6; }   
+.icon-proses { background-color: #fef3c7; color: #d97706; }  
+.icon-selesai { background-color: #f0fdf4; color: #16a34a; } 
+.icon-dana { background-color: #f5f3ff; color: #7c3aed; }

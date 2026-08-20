@@ -6,18 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Zikra Service Laptop</title>
 
-    <!-- Menghubungkan HTML dengan file style.css tersendiri -->
+    <!-- Memanggil file style luar murni -->
     <link rel="stylesheet" href="style.css">
-    
-    <style>
-        /* CSS Sementara untuk area kanan yang sengaja dikosongkan dulu agar mudah berpikir */
-        .main-content {
-            margin-left: 260px; /* Memberi ruang agar tidak tertutup sidebar */
-            padding: 40px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #334155;
-        }
-    </style>
 </head>
 
 <body>
@@ -29,7 +19,6 @@
             <p>Sistem Informasi Jasa Servis</p>
         </div>
         <div class="nav-menu">
-            <!-- Kelas 'active' dipasang di menu Dashboard karena halaman ini yang sedang dibuka -->
             <a class="nav-link active" href="dashboard.html">📊 Dashboard</a>
             <a class="nav-link" href="pelanggan.html">👥 Data Pelanggan</a>
             <a class="nav-link" href="teknisi.html">🪪 Data Teknisi</a>
@@ -40,10 +29,45 @@
         </div>
     </div>
 
-    <!-- 2. Bagian Konten Kanan (Sengaja Dikosongkan Dulu) -->
+    <!-- 2. Bagian Konten Kanan -->
     <div class="main-content">
-        <h2>Selamat Datang di Zikra Service</h2>
-        <p>Area ini sengaja dikosongkan terlebih dahulu agar fokus merapikan menu utama.</p>
+        <h2>Dashboard Ringkasan</h2>
+        
+        <div class="stat-grid">
+            
+            <div class="stat-card">
+                <div>
+                    <div class="stat-title">Total Servis</div>
+                    <div class="stat-value">120</div>
+                </div>
+                <div class="stat-icon icon-total">💻</div>
+            </div>
+
+            <div class="stat-card">
+                <div>
+                    <div class="stat-title">Dalam Proses</div>
+                    <div class="stat-value">18</div>
+                </div>
+                <div class="stat-icon icon-proses">⚙️</div>
+            </div>
+
+            <div class="stat-card">
+                <div>
+                    <div class="stat-title">Servis Selesai</div>
+                    <div class="stat-value">97</div>
+                </div>
+                <div class="stat-icon icon-selesai">✅</div>
+            </div>
+
+            <div class="stat-card">
+                <div>
+                    <div class="stat-title">Pendapatan Bulan Ini</div>
+                    <div class="stat-value" style="font-size: 1.35rem;">Rp8.500.000</div>
+                </div>
+                <div class="stat-icon icon-dana">💰</div>
+            </div>
+
+        </div>
     </div>
 
 </body>
