@@ -5,29 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Zikra Service Laptop</title>
-
-    <!-- Memanggil file style luar murni -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Keluar folder dulu (../) baru panggil style.css -->
+    <link rel="stylesheet" href="../style.css">
 </head>
+
 
 <body>
 
     <!-- 1. Bagian Menu Sidebar Kiri -->
-    <div class="sidebar">
+       <div class="sidebar">
         <div class="sidebar-brand">
             <h4>ZIKRA SERVICE</h4>
             <p>Sistem Informasi Jasa Servis</p>
         </div>
         <div class="nav-menu">
+            <!-- Sesama penghuni folder pages, panggil langsung namanya saja -->
             <a class="nav-link active" href="dashboard.html">📊 Dashboard</a>
             <a class="nav-link" href="pelanggan.html">👥 Data Pelanggan</a>
             <a class="nav-link" href="teknisi.html">🪪 Data Teknisi</a>
             <a class="nav-link" href="servis.html">💻 Data Servis</a>
             <a class="nav-link" href="transaksi.html">💳 Transaksi</a>
             <a class="nav-link" href="laporan.html">📈 Laporan</a>
-            <a class="nav-link nav-link-logout" href="index.html">🚪 Keluar (Logout)</a>
+            <!-- Khusus Logout, harus keluar folder dulu ke index.html di luar -->
+            <a class="nav-link nav-link-logout" href="../index.html">🚪 Keluar (Logout)</a>
         </div>
     </div>
+
 
     <!-- 2. Bagian Konten Kanan -->
     <div class="main-content">
