@@ -276,3 +276,57 @@ body {
 
 .btn-edit { background-color: #eff6ff; color: #3b82f6; }
 .btn-delete { background-color: #fee2e2; color: #ef4444; }
+
+/* ==================== HIASAN STRUKTUR HALAMAN PELANGGAN ==================== */
+
+/* Kolom Pencarian Pelanggan */
+.search-pelanggan {
+    position: relative;
+    max-width: 320px;
+    margin-bottom: 20px;
+}
+
+.search-pelanggan input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.search-pelanggan input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-pelanggan::before {
+    content: "🔍";
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+/* Modifikasi Baris Tabel Saat Disentuh Kursor (Hover) */
+.table-hover-custom tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table-hover-custom tbody tr:hover {
+    background-color: #eff6ff !important; /* Biru super lembut */
+    transform: scale(1.005); /* Efek sedikit membesar halus */
+}
+
+/* Efek Tombol Aksi Transisi Lembut */
+.btn-action {
+    transition: all 0.2s ease !important;
+}
+
+.btn-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
