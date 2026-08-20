@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Zikra Service Laptop</title>
+
+    <!-- Bootstrap 5.3.3 & Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" href="https://cloudflare.com">
+
+    <style>
+        :root {
+            --primary-color: #1e3a8a; /* Navy Premium */
+            --secondary-color: #3b82f6; /* Biru Aksen */
+            --bg-light: #f8fafc;
+            --sidebar-width: 260px;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #0f172a; /* Gelap Premium */
+            color: #94a3b8;
+            padding: 24px;
+            z-index: 100;
+        }
+
+        .sidebar-brand h4 {
+            color: #ffffff;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-brand p {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .nav-link {
+            color: #94a3b8;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .nav-link.active {
+            background-color: var(--secondary-color);
+            color: #ffffff !important;
+        }
+
+        .nav-link-logout:hover {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        /* Topbar / Header Section */
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-box input {
+            padding: 10px 16px 10px 40px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background-color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification-btn {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            border-radius: 12px;
+            color: #64748b;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            border-radius: 50%;
+        }
+
+        .profile-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Hero Dashboard Banner */
+        .dashboard-banner {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+            border-radius: 20px;
+            padding: 32px;
+            color: white;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.15);
+        }
+
+        .btn-tambah {
+            background-color: #ffffff;
+            color: var(--primary-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .btn-tambah:hover {
+            background-color: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        /* Stat Cards Styling */
+        .stat-card {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-title {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .icon-total { background-color: #eff6ff; color: #3b82f6; }
+        .icon-proses { background-color: #fef3c7; color: #d97706; }
+        .icon-selesai { background-color: #f0fdf4; color: #16a34a; }
+        .icon-dana { background-color: #f5f3ff; color: #7c3aed; }
+
+        /* Modern Table Card */
+        .table-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            border: none;
+        }
+
+        .table-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+
+        .table th {
+            font-weight: 600;
+            color: #64748b;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 16px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .table td {
+            padding: 18px 16px;
+            font-size: 0.95rem;
+            color: #334155;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        /* Status Badges */
+        .badge-custom {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        .badge-proses { background-color: #fef3c7; color: #d97706; }
+        .badge-selesai { background-color: #dcfce7; color: #15803d; }
+        .badge-pending { background-color: #fee2e2; color: #b91c1c; }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar Section -->
+    <div class="sidebar">
+        <div class="sidebar-brand mb-4">
+            <h4>ZIKRA SERVICE</h4>
+            <p>Sistem Informasi Jasa Servis</p>
+        </div>
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="#"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+            <a class="nav-link" href="#"><i class="bi bi-people-fill"></i> Data Pelanggan</a>
+            <a class="nav-link" href="#"><i class="bi bi-person-badge-fill"></i> Data Teknisi</a>
+            <a class="nav-link" href="#"><i class="bi bi-laptop-fill"></i> Data Servis</a>
+            <a class="nav-link" href="#"><i class="bi bi-credit-card-heading"></i> Transaksi</a>
+            <a class="nav-link" href="#"><i class="bi bi-file-earmark-bar-graph-fill"></i> Laporan</a>
+            <a class="nav-link nav-link-logout mt-4" href="index.html"><i class="bi bi-box-arrow-left"></i> Logout</a>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <!-- Header Topbar -->
+        <div class="header-section">
+            <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" class="form-control" placeholder="Cari data servis...">
+            </div>
+            <div class="user-profile">
+                <button class="notification-btn">
+                    <i class="bi bi-bell-fill"></i>
+                    <span class="notification-badge"></span>
+                </button>
+                <img src="https://unsplash.com" class="profile-img" alt="User Profile">
+            </div>
+        </div>
+
+        <!-- Banner Dashboard Utama -->
+        <div class="dashboard-banner d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold mb-1">Dashboard Servis</h2>
+                <p class="mb-0 opacity-75">Pantau status pengerjaan perangkat pelanggan secara real-time.</p>
+            </div>
+            <button class="btn btn-tambah"><i class="bi bi-plus-lg me-2"></i>Tambah Servis</button>
+        </div>
+
+        <!-- Row Kartu Informasi Angka / Statistik -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div>
+                        <div class="stat-title">Total Servis</div>
+                        <div class="stat-value">120</div>
+                    </div>
+                    <div class="stat-icon icon-total"><i class="bi bi-laptop"></i></div>
+                </div>
+            </div>
