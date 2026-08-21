@@ -30,28 +30,31 @@
 
     <!-- 2. Bagian Konten Kanan -->
     <div class="main-content">
-        
+
         <!-- Judul Halaman dan Tombol Tambah Data -->
         <div class="content-header">
             <div>
                 <h2 style="margin-bottom: 5px;">Data Pelanggan</h2>
                 <!-- Total terdaftar sekarang otomatis dihitung oleh JavaScript -->
-                <p style="margin: 0; color: #64748b; font-size: 0.9rem;">Total terdaftar: <span id="total-pelanggan" style="background: #e2e8f0; padding: 2px 8px; border-radius: 6px; font-weight: bold; color: #1e3a8a;">0 Orang</span></p>
+                <p style="margin: 0; color: #64748b; font-size: 0.9rem;">Total terdaftar: <span id="total-pelanggan"
+                        style="background: #e2e8f0; padding: 2px 8px; border-radius: 6px; font-weight: bold; color: #1e3a8a;">0
+                        Orang</span></p>
             </div>
             <a href="#modal-tambah" class="btn-primary-custom">➕ Tambah Pelanggan</a>
         </div>
-        
+
         <!-- Tabel Data Pelanggan -->
         <div class="table-card">
-            
+
             <div class="table-actions-wrapper">
                 <div class="export-buttons">
                     <button onclick="window.print()" class="btn-export" style="cursor:pointer">📄 Cetak Halaman</button>
                 </div>
-                
+
                 <div class="search-pelanggan" style="margin-bottom: 0;">
                     <!-- Input pencarian sekarang dicolok fungsi live filter -->
-                    <input type="text" id="input-cari" onkeyup="cariPelanggan()" placeholder="Cari nama atau nomor WA...">
+                    <input type="text" id="input-cari" onkeyup="cariPelanggan()"
+                        placeholder="Cari nama atau nomor WA...">
                 </div>
             </div>
 
@@ -88,7 +91,7 @@
             <form id="form-pelanggan" onsubmit="simpanPelanggan(event)">
                 <!-- Input hidden untuk penanda jika sedang meng-edit data lama -->
                 <input type="hidden" id="edit-index">
-                
+
                 <div class="form-group">
                     <label>Nama Lengkap</label>
                     <input type="text" id="form-nama" placeholder="Masukkan nama pelanggan" required>
@@ -99,14 +102,16 @@
                 </div>
                 <div class="form-group">
                     <label>Alamat Rumah</label>
-                    <textarea id="form-alamat" rows="3" placeholder="Masukkan alamat lengkap pelanggan" required></textarea>
+                    <textarea id="form-alamat" rows="3" placeholder="Masukkan alamat lengkap pelanggan"
+                        required></textarea>
                 </div>
                 <div class="form-group">
                     <label>Tanggal Join</label>
                     <input type="date" id="form-tanggal" required>
                 </div>
                 <div style="text-align: right; margin-top: 25px;">
-                    <a href="#" class="modal-close btn-export" style="margin-right: 8px; border-radius: 10px;" onclick="tutupModal()">Batal</a>
+                    <a href="#" class="modal-close btn-export" style="margin-right: 8px; border-radius: 10px;"
+                        onclick="tutupModal()">Batal</a>
                     <button type="submit" class="btn-primary-custom" style="padding: 10px 24px;">Simpan Data</button>
                 </div>
             </form>
@@ -132,11 +137,11 @@
         function tampilkanData() {
             const targetTabel = document.getElementById('data-tabel-pelanggan');
             const targetTotal = document.getElementById('total-pelanggan');
-            
+
             targetTabel.innerHTML = '';
             targetTotal.innerText = daftarPelanggan.length + " Orang";
 
-            if(daftarPelanggan.length === 0) {
+            if (daftarPelanggan.length === 0) {
                 targetTabel.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94a3b8;">Belum ada data pelanggan. Silakan tambah baru!</td></tr>`;
                 return;
             }
@@ -207,3 +212,24 @@
             document.getElementById('form-pelanggan').reset();
             document.getElementById('edit-index').value = "";
             document.getElementById('modal-title').innerText = "Tambah Pelanggan Baru";
+        }
+
+        // GANTI FUNGSI cariPelanggan() LAMA KAMU DENGAN KODE DI BAWAH INI
+function cariPelanggan() {
+    const keyword = document.getElementById('input-cari').value.toLowerCase();
+    const barisTabel = document.querySelectorAll('#data-tabel-pelanggan tr');
+
+    barisTabel.forEach(baris => {
+        // Memastikan baris memiliki kolom data sebelum membaca teksnya
+        if (baris.cells && baris.cells.length > 1) {
+            const nama = baris.cells[1].innerText.toLowerCase(); // Kolom ke-2 (Nama Lengkap)
+            const wa = baris.cells[2].innerText.toLowerCase();   // Kolom ke-3 (Nomor WhatsApp)
+            
+            if (nama.includes(keyword) || wa.includes(keyword)) {
+                baris.style.display = ""; // Munculkan jika cocok
+            } else {
+                baris.style.display = "none"; // Sembunyikan jika tidak cocok
+            }
+        }
+    });
+}
