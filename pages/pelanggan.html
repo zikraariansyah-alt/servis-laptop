@@ -18,7 +18,6 @@
             <p>Sistem Informasi Jasa Servis</p>
         </div>
         <div class="nav-menu">
-            <!-- Pindah kelas 'active' ke Data Pelanggan karena halaman ini yang sedang dibuka -->
             <a class="nav-link" href="dashboard.html">📊 Dashboard</a>
             <a class="nav-link active" href="pelanggan.html">👥 Data Pelanggan</a>
             <a class="nav-link" href="teknisi.html">🪪 Data Teknisi</a>
@@ -30,39 +29,29 @@
     </div>
 
     <!-- 2. Bagian Konten Kanan -->
-    <!-- 2. Bagian Konten Kanan (Desain Baru yang Sudah Dihias) -->
     <div class="main-content">
-
+        
         <!-- Judul Halaman dan Tombol Tambah Data -->
         <div class="content-header">
             <div>
                 <h2 style="margin-bottom: 5px;">Data Pelanggan</h2>
-                <p style="margin: 0; color: #64748b; font-size: 0.9rem;">Total terdaftar: <span
-                        style="background: #e2e8f0; padding: 2px 8px; border-radius: 6px; font-weight: bold; color: #1e3a8a;">3
-                        Orang</span></p>
+                <!-- Total terdaftar sekarang otomatis dihitung oleh JavaScript -->
+                <p style="margin: 0; color: #64748b; font-size: 0.9rem;">Total terdaftar: <span id="total-pelanggan" style="background: #e2e8f0; padding: 2px 8px; border-radius: 6px; font-weight: bold; color: #1e3a8a;">0 Orang</span></p>
             </div>
-            <a href="#" class="btn-primary-custom">➕ Tambah Pelanggan</a>
+            <a href="#modal-tambah" class="btn-primary-custom">➕ Tambah Pelanggan</a>
         </div>
-
+        
         <!-- Tabel Data Pelanggan -->
-        <!-- Tabel Data Pelanggan dengan Fitur Tambahan Ekspor & Modal -->
         <div class="table-card">
-
-            <!-- Mengubah tombol Tambah di atas agar nge-link ke ID Modal (#modal-tambah) -->
-            <script>
-                // Trik mengubah link tombol tambah pelanggan di atas secara otomatis tanpa bongkar kode atas
-                document.querySelector('.btn-primary-custom').setAttribute('href', '#modal-tambah');
-            </script>
-
-            <!-- Baris Fitur Aksi (Tombol Cetak & Kolom Cari) -->
+            
             <div class="table-actions-wrapper">
                 <div class="export-buttons">
-                    <a href="#" class="btn-export">📄 Cetak PDF</a>
-                    <a href="#" class="btn-export">📊 Ekspor Excel</a>
+                    <button onclick="window.print()" class="btn-export" style="cursor:pointer">📄 Cetak Halaman</button>
                 </div>
-
+                
                 <div class="search-pelanggan" style="margin-bottom: 0;">
-                    <input type="text" placeholder="Cari nama atau nomor WA...">
+                    <!-- Input pencarian sekarang dicolok fungsi live filter -->
+                    <input type="text" id="input-cari" onkeyup="cariPelanggan()" placeholder="Cari nama atau nomor WA...">
                 </div>
             </div>
 
@@ -78,75 +67,143 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td style="font-weight: 600; color: #1e293b;">Andi Wijaya</td>
-                            <td style="color: #475569;">0812-3456-7890</td>
-                            <td>Jl. Merdeka No. 12, Jakarta</td>
-                            <td>15 Agu 2026</td>
-                            <td>
-                                <a href="#" class="btn-action btn-edit">✏️ Edit</a>
-                                <a href="#" class="btn-action btn-delete">🗑️ Hapus</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td style="font-weight: 600; color: #1e293b;">Angga Saputra</td>
-                            <td style="color: #475569;">0857-9876-5432</td>
-                            <td>Jl. Mawar Gg. 4, Bandung</td>
-                            <td>18 Agu 2026</td>
-                            <td>
-                                <a href="#" class="btn-action btn-edit">✏️ Edit</a>
-                                <a href="#" class="btn-action btn-delete">🗑️ Hapus</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td style="font-weight: 600; color: #1e293b;">Rizky Pratama</td>
-                            <td style="color: #475569;">0899-2233-4455</td>
-                            <td>Jl. Sudirman No. 88, Surabaya</td>
-                            <td>20 Agu 2026</td>
-                            <td>
-                                <a href="#" class="btn-action btn-edit">✏️ Edit</a>
-                                <a href="#" class="btn-action btn-delete">🗑️ Hapus</a>
-                            </td>
-                        </tr>
+                    <!-- Wadah badan tabel dikosongkan karena akan diisi otomatis oleh JavaScript -->
+                    <tbody id="data-tabel-pelanggan">
+                        <!-- Data otomatis muncul dari LocalStorage -->
                     </tbody>
                 </table>
             </div>
         </div>
-    </div> <!-- Batas Akhir .main-content -->
+    </div>
 
 
     <!-- ==================== STRUKTUR KOTAK FORM POP-UP (MODAL) ==================== -->
     <div id="modal-tambah" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-header">
-                <h3>Tambah Pelanggan Baru</h3>
-                <a href="#" class="modal-close">&times;</a>
+                <h3 id="modal-title">Tambah Pelanggan Baru</h3>
+                <a href="#" class="modal-close" onclick="tutupModal()">&times;</a>
             </div>
-            <form action="#">
+            <!-- Form dicolok ke fungsi JavaScript simpan data -->
+            <form id="form-pelanggan" onsubmit="simpanPelanggan(event)">
+                <!-- Input hidden untuk penanda jika sedang meng-edit data lama -->
+                <input type="hidden" id="edit-index">
+                
                 <div class="form-group">
                     <label>Nama Lengkap</label>
-                    <input type="text" placeholder="Masukkan nama pelanggan" required>
+                    <input type="text" id="form-nama" placeholder="Masukkan nama pelanggan" required>
                 </div>
                 <div class="form-group">
                     <label>Nomor WhatsApp</label>
-                    <input type="tel" placeholder="Contoh: 081234567xxx" required>
+                    <input type="tel" id="form-wa" placeholder="Contoh: 081234567xxx" required>
                 </div>
                 <div class="form-group">
                     <label>Alamat Rumah</label>
-                    <textarea rows="3" placeholder="Masukkan alamat lengkap pelanggan" required></textarea>
+                    <textarea id="form-alamat" rows="3" placeholder="Masukkan alamat lengkap pelanggan" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Tanggal Join</label>
+                    <input type="date" id="form-tanggal" required>
                 </div>
                 <div style="text-align: right; margin-top: 25px;">
-                    <a href="#" class="btn-export" style="margin-right: 8px; border-radius: 10px;">Batal</a>
+                    <a href="#" class="modal-close btn-export" style="margin-right: 8px; border-radius: 10px;" onclick="tutupModal()">Batal</a>
                     <button type="submit" class="btn-primary-custom" style="padding: 10px 24px;">Simpan Data</button>
                 </div>
             </form>
         </div>
     </div>
 
-</body>
+    <!-- ==================== LOGIKA INTERAKTIF (JAVASCRIPT) ==================== -->
+    <script>
+        // 1. Ambil data lama di LocalStorage, jika kosong buatkan array data contoh pertama
+        let daftarPelanggan = JSON.parse(localStorage.getItem('database_pelanggan')) || [
+            { nama: "Andi Wijaya", wa: "0812-3456-7890", alamat: "Jl. Merdeka No. 12, Jakarta", tanggal: "2026-08-15" },
+            { nama: "Angga Saputra", wa: "0857-9876-5432", alamat: "Jl. Mawar Gg. 4, Bandung", tanggal: "2026-08-18" },
+            { nama: "Rizky Pratama", wa: "0899-2233-4455", alamat: "Jl. Sudirman No. 88, Surabaya", tanggal: "2026-08-20" }
+        ];
 
-</html>
+        // Fungsi memformat tanggal internasional ke bentuk teks Indonesia (YYYY-MM-DD -> DD Meb YYYY)
+        function formatTanggal(stringTanggal) {
+            const opsi = { day: 'numeric', month: 'short', year: 'numeric' };
+            return new Date(stringTanggal).toLocaleDateString('id-ID', opsi);
+        }
+
+        // 2. Fungsi menampilkan data array ke dalam tabel HTML
+        function tampilkanData() {
+            const targetTabel = document.getElementById('data-tabel-pelanggan');
+            const targetTotal = document.getElementById('total-pelanggan');
+            
+            targetTabel.innerHTML = '';
+            targetTotal.innerText = daftarPelanggan.length + " Orang";
+
+            if(daftarPelanggan.length === 0) {
+                targetTabel.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94a3b8;">Belum ada data pelanggan. Silakan tambah baru!</td></tr>`;
+                return;
+            }
+
+            daftarPelanggan.forEach((pelanggan, index) => {
+                targetTabel.innerHTML += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td style="font-weight: 600; color: #1e293b;">${pelanggan.nama}</td>
+                        <td style="color: #475569;">${pelanggan.wa}</td>
+                        <td>${pelanggan.alamat}</td>
+                        <td>${formatTanggal(pelanggan.tanggal)}</td>
+                        <td>
+                            <a href="#modal-tambah" class="btn-action btn-edit" onclick="bukaEdit(${index})">✏️ Edit</a>
+                            <button class="btn-action btn-delete" style="border:none; cursor:pointer" onclick="hapusPelanggan(${index})">🗑️ Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            // Simpan perubahan data terbaru ke memori browser
+            localStorage.setItem('database_pelanggan', JSON.stringify(daftarPelanggan));
+        }
+
+        // 3. Fungsi Tambah & Edit Data Baru
+        function simpanPelanggan(event) {
+            event.preventDefault(); // Mencegah reload halaman saat submit form
+
+            const indexEdit = document.getElementById('edit-index').value;
+            const dataBaru = {
+                nama: document.getElementById('form-nama').value,
+                wa: document.getElementById('form-wa').value,
+                alamat: document.getElementById('form-alamat').value,
+                tanggal: document.getElementById('form-tanggal').value
+            };
+
+            if (indexEdit === "") {
+                // Jika index kosong = Tambah Data Baru
+                daftarPelanggan.push(dataBaru);
+            } else {
+                // Jika index terisi = Edit Data Lama
+                daftarPelanggan[indexEdit] = dataBaru;
+            }
+
+            tampilkanData();
+            tutupModal();
+        }
+
+        // 4. Fungsi Mengisi Form Saat Tombol Edit diklik
+        function bukaEdit(index) {
+            document.getElementById('modal-title').innerText = "Edit Data Pelanggan";
+            document.getElementById('edit-index').value = index;
+            document.getElementById('form-nama').value = daftarPelanggan[index].nama;
+            document.getElementById('form-wa').value = daftarPelanggan[index].wa;
+            document.getElementById('form-alamat').value = daftarPelanggan[index].alamat;
+            document.getElementById('form-tanggal').value = daftarPelanggan[index].tanggal;
+        }
+
+        // 5. Fungsi Hapus Data
+        function hapusPelanggan(index) {
+            if (confirm(`Apakah Anda yakin ingin menghapus data "${daftarPelanggan[index].nama}"?`)) {
+                daftarPelanggan.splice(index, 1); // Hapus data dari array
+                tampilkanData();
+            }
+        }
+
+        // 6. Fungsi Bersihkan Form saat tutup/batal
+        function tutupModal() {
+            document.getElementById('form-pelanggan').reset();
+            document.getElementById('edit-index').value = "";
+            document.getElementById('modal-title').innerText = "Tambah Pelanggan Baru";
