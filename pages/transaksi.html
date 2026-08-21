@@ -1,233 +1,138 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Transaksi</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Transaksi - Zikra Service Laptop</title>
+    <!-- Keluar folder dulu (../) baru panggil style.css -->
+    <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
 
-<div class="sidebar">
-
-    <h4>Zikra Service</h4>
-    <h5>Sistem Informasi Jasa Service laptop</h5>
-    
-    <a href="index.html">Dashboard</a>
-    <a href="pelanggan.html">Data Pelanggan</a>
-    <a href="teknisi.html">Data Teknisi</a>
-    <a href="servis.html">Data Servis</a>
-    <a href="transaksi.html">Transaksi</a>
-    <a href="laporan.html">Laporan</a>
-    <a href="login.html">Logout</a>
-
-</div>
-
-<!-- Topbar -->
- <div class="topbar">
-
-    <input
-        type="text"
-        class="form-control search-box"
-        placeholder="Cari Servis">
-
-    <div class="topbar-right">
-
-        <div class="notification">
-
-            <i class="bi bi-bell"></i>
-
-            <span class="badge-custom">
-                4
-            </span>
-
+    <!-- 1. Bagian Menu Sidebar Kiri -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h4>ZIKRA SERVICE</h4>
+            <p>Sistem Informasi Jasa Servis</p>
         </div>
-
-        <img
-            src="https://i.pravatar.cc/100"
-            class="profile-img">
-
-    </div>
-
-</div>
-
-<!-- Content -->
-<div class="content">
-<div class="d-flex justify-content-between align-items-center">
-    
-    <h2 class="mb-4">Transaksi</h2>
-     <button class="btn-primary-custom mb-3">
-            Tambah Transaksi
-        </button>
-    </div>
-
-
-    <div class="row">
-
-        <div class="col-md-3 mb-3">
-            <div class="card p-3">
-                <h5>Total Transaksi</h5>
-                <h2>120</h2>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-3">
-            <div class="card p-3">
-                <h5>Lunas</h5>
-                <h2>95</h2>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-3">
-            <div class="card p-3">
-                <h5>Belum Lunas</h5>
-                <h2>25</h2>
-            </div>
+        <div class="nav-menu">
+            <!-- Pindah kelas 'active' ke Transaksi karena halaman ini yang sedang dibuka -->
+            <a class="nav-link" href="dashboard.html">📊 Dashboard</a>
+            <a class="nav-link" href="pelanggan.html">👥 Data Pelanggan</a>
+            <a class="nav-link" href="teknisi.html">🪪 Data Teknisi</a>
+            <a class="nav-link" href="servis.html">💻 Data Servis</a>
+            <a class="nav-link active" href="transaksi.html">💳 Transaksi</a>
+            <a class="nav-link" href="laporan.html">📈 Laporan</a>
+            <a class="nav-link nav-link-logout" href="../index.html">🚪 Keluar (Logout)</a>
         </div>
     </div>
 
-    <div class="card p-4 mb-4">
-
-    <h4 class="mb-4">Informasi Transaksi</h4>
-
-    <div class="row mb-3">
-        <label class="col-md-3">ID Transaksi</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" placeholder="ID Transaksi">
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <label class="col-md-3">ID Servis</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" placeholder="ID Servis">
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <label class="col-md-3">Nama Pelanggan</label>
-        <div class="col-md-9">
-            <input type="email" class="form-control" placeholder="Nama Pelanggan">
-        </div>
-    </div>
-    
-    <div class="row mb-3">
-        <label class="col-md-3">Tanggal Transaksi</label>
-        <div class="col-md-9">
-            <input type="date" class="form-control">
-        </div>
-    </div>
-    
-    
-    <div class="row mb-3">
-        <label class="col-md-3">Total Biaya</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" placeholder="Total Biaya">
-        </div>
-    </div>
-
-   <div class="row mb-3">
-        <label class="col-md-3">Metode Pembayaran</label>
-        <div class="col-md-9">
-            <select class="form-select">
-                <option>Metode Pembayaran</option>
-                <option>Cash</option>
-                <option>QRIS</option>
-                <option>Transfer</option>
-            </select>
-        </div>
-    </div>
-    
-    <div class="row mb-3">
-        <label class="col-md-3">Status Pembayaran</label>
-        <div class="col-md-9">
-            <select class="form-select">
-                <option>Pilih Status</option>
-                <option>Lunas</option>
-                <option>Belum lunas</option>
-            </select>
-        </div>
-    </div>
-    
-    <div class="row mb-3">
-            <label class="col-md-3">Catatan Pembayaran</label>
-            <div class="col-md-9">
-                <textarea class="form-control" rows="4" placeholder="Catatan Pembayaran"></textarea>
-            </div>
-        </div>
-
-        <button class="btn btn-primary" style="width:120px; height:40px;">
-        Simpan Data
-    </button>
-</div>    
-
-
-<div class="card p-3">
-        <h5 class="mb-4">Daftar Transaksi</h5>
+    <!-- 2. Bagian Konten Kanan -->
+    <div class="main-content">
         
-        <table class="table table-bordered">
-            
-            <thead>
-                <tr>
-                    <th>ID Transaksi</th>
-                    <th>Pelanggan</th>
-                    <th>Total Biaya</th>
-                    <th>Metode</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                <tr>
-                    <td>TRX001</td>
-                    <td>Andi</td>
-                    <td>Rp350.000</td>
-                    <td>Cash</td>
-                    <td>
-                    <span class="status-selesai">
-                        Lunas
-                        </span>    
-                    </td>
-                    <td></td>
-                </tr>
+        <!-- Judul Halaman dan Tombol Tambah Data -->
+        <div class="content-header">
+            <div>
+                <h2 style="margin-bottom: 5px;">Data Transaksi Pembayaran</h2>
+                <p style="margin: 0; color: #64748b; font-size: 0.9rem;">Bulan Ini: <span style="background: #dcfce7; padding: 2px 8px; border-radius: 6px; font-weight: bold; color: #15803d;">Rp8.500.000</span></p>
+            </div>
+            <!-- Menghubungkan langsung ke ID Pop-up modal-transaksi -->
+            <a href="#modal-transaksi" class="btn-primary-custom">➕ Catat Transaksi Baru</a>
+        </div>
+        
+        <!-- Tabel Data Transaksi -->
+        <div class="table-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 15px;">
+                <div class="table-title" style="margin-bottom: 0;">Riwayat Kasir & Kuitansi</div>
                 
-                <tr>
-                    <td>TRX002</td>
-                    <td>Angga</td>
-                    <td>Rp250.000</td>
-                    <td>QRIS</td>
-                    <td>
-                    <span class="status-selesai">
-                        Lunas
-                        </span>
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>TRX003</td>
-                    <td>Rizky</td>
-                    <td>Rp150.000</td>
-                    <td>Transfer</td>
-                    <td>
-                    <span class="status-pending">
-                        Pending
-                        </span>
-                    </td>
-                    <td></td>
-                </tr>
-            </tbody>
-            
-        </table>
-        
+                <div class="search-pelanggan" style="margin-bottom: 0;">
+                    <input type="text" placeholder="Cari Kode TRX atau Nama...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover-custom">
+                    <thead>
+                        <tr>
+                            <th>Kode TRX</th>
+                            <th>ID Nota</th>
+                            <th>Nama Pelanggan</th>
+                            <th>Total Biaya</th>
+                            <th>Metode Bayar</th>
+                            <th>Status Kas</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: bold; color: #1e293b;">TRX-001</td>
+                            <td style="font-weight: bold; color: #3b82f6;">SRV001</td>
+                            <td style="font-weight: 600; color: #1e293b;">Andi Wijaya</td>
+                            <td style="font-weight: 600; color: #16a34a;">Rp350.000</td>
+                            <td>💵 Tunai / Cash</td>
+                            <td><span class="badge-custom badge-selesai">🟢 Lunas</span></td>
+                            <td>
+                                <a href="#" class="btn-action btn-edit">🧾 Nota</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; color: #1e293b;">TRX-002</td>
+                            <td style="font-weight: bold; color: #3b82f6;">SRV002</td>
+                            <td style="font-weight: 600; color: #1e293b;">Angga Saputra</td>
+                            <td style="font-weight: 600; color: #16a34a;">Rp250.000</td>
+                            <td>📱 QRIS / Transfer</td>
+                            <td><span class="badge-custom badge-selesai">🟢 Lunas</span></td>
+                            <td>
+                                <a href="#" class="btn-action btn-edit">🧾 Nota</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; color: #1e293b;">TRX-003</td>
+                            <td style="font-weight: bold; color: #3b82f6;">SRV003</td>
+                            <td style="font-weight: 600; color: #1e293b;">Rizky Pratama</td>
+                            <td style="font-weight: 600; color: #ef4444;">Rp300.000</td>
+                            <td>—</td>
+                            <td><span class="badge-custom badge-pending">🟡 Belum Bayar</span></td>
+                            <td>
+                                <a href="#" class="btn-action btn-delete">⚠️ Tagih</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
+
+    <!-- ==================== STRUKTUR KOTAK FORM POP-UP REGISTER TRANSAKSI ==================== -->
+    <div id="modal-transaksi" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Input Pembayaran Kasir</h3>
+                <a href="#" class="modal-close">&times;</a>
+            </div>
+            <form action="#">
+                <div class="form-group">
+                    <label>Pilih ID Nota Servis</label>
+                    <input type="text" placeholder="Contoh: SRV001" required>
+                </div>
+                <div class="form-group">
+                    <label>Jumlah Uang Diterima (Rp)</label>
+                    <input type="number" placeholder="Masukkan nominal pembayaran" required>
+                </div>
+                <div class="form-group">
+                    <label>Metode Pembayaran</label>
+                    <input type="text" placeholder="Contoh: Tunai / Transfer BCA / QRIS" required>
+                </div>
+                <div style="text-align: right; margin-top: 25px;">
+                    <a href="#" class="btn-export" style="margin-right: 8px; border-radius: 10px;">Batal</a>
+                    <button type="submit" class="btn-primary-custom" style="padding: 10px 24px;">Cetak Kuitansi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </body>
+
 </html>
