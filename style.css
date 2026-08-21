@@ -448,3 +448,25 @@ body {
 }
 
 .form-group input:focus, .form-group textarea:focus { border-color: #3b82f6; }
+
+/* ==================== SENTUHAN AKHIR TOMBOL HALAMAN PELANGGAN ==================== */
+
+/* Mengubah Tombol Edit Menjadi Biru Lembut */
+.table-hover-custom .btn-edit {
+    background-color: #eff6ff !important;
+    color: #2563eb !important;
+    border: 1px solid #bfdbfe;
+}
+.table-hover-custom .btn-edit:hover {
+    background-color: #dbeafe !important;
+}
+
+/* Mengubah Tombol Hapus Menjadi Merah Lembut */
+.table-hover-custom .btn-delete {
+    background-color: #fef2f2 !important;
+    color: #dc2626 !important;
+    border: 1px solid #fecaca;
+}
+.table-hover-custom .btn-delete:hover {
+    background-color: #fee2e2 !important;
+}
