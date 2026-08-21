@@ -237,4 +237,12 @@
     }
 
     window.onload = tampilkanData;
+
+    // Konfigurasi API Supabase berdasarkan proyek cloud milikmu
+const SUPABASE_URL = "https://supabase.co";
+const SUPABASE_KEY = "sb_publishable_g04GoWcgG4rcSzYZ4pTN5A_aE_MoKzT"; 
+
+// Inisialisasi klien koneksi cloud
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 </script>
