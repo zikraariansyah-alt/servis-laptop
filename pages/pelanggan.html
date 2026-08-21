@@ -80,38 +80,41 @@
     </div>
 
 
-    <!-- ==================== STRUKTUR KOTAK FORM POP-UP (MODAL) ==================== -->
+        <!-- PASTIKAN STRUKTUR FORM MODAL KAMU DI-UPDATE SEPERTI INI -->
     <div id="modal-tambah" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-header">
                 <h3 id="modal-title">Tambah Pelanggan Baru</h3>
                 <a href="#" class="modal-close" onclick="tutupModal()">&times;</a>
             </div>
-            <!-- Form dicolok ke fungsi JavaScript simpan data -->
+            
+            <!-- Pastikan onsubmit dicolok ke simpanPelanggan(event) -->
             <form id="form-pelanggan" onsubmit="simpanPelanggan(event)">
-                <!-- Input hidden untuk penanda jika sedang meng-edit data lama -->
+                <!-- Input hidden untuk menampung ID saat edit data -->
                 <input type="hidden" id="edit-index">
-
+                
                 <div class="form-group">
                     <label>Nama Lengkap</label>
+                    <!-- KUNCI 1: id wajib "form-nama" -->
                     <input type="text" id="form-nama" placeholder="Masukkan nama pelanggan" required>
                 </div>
                 <div class="form-group">
                     <label>Nomor WhatsApp</label>
+                    <!-- KUNCI 2: id wajib "form-wa" -->
                     <input type="tel" id="form-wa" placeholder="Contoh: 081234567xxx" required>
                 </div>
                 <div class="form-group">
                     <label>Alamat Rumah</label>
-                    <textarea id="form-alamat" rows="3" placeholder="Masukkan alamat lengkap pelanggan"
-                        required></textarea>
+                    <!-- KUNCI 3: id wajib "form-alamat" -->
+                    <textarea id="form-alamat" rows="3" placeholder="Masukkan alamat lengkap pelanggan" required></textarea>
                 </div>
                 <div class="form-group">
                     <label>Tanggal Join</label>
+                    <!-- KUNCI 4: id wajib "form-tanggal" -->
                     <input type="date" id="form-tanggal" required>
                 </div>
                 <div style="text-align: right; margin-top: 25px;">
-                    <a href="#" class="modal-close btn-export" style="margin-right: 8px; border-radius: 10px;"
-                        onclick="tutupModal()">Batal</a>
+                    <a href="#" class="modal-close btn-export" style="margin-right: 8px; border-radius: 10px;" onclick="tutupModal()">Batal</a>
                     <button type="submit" class="btn-primary-custom" style="padding: 10px 24px;">Simpan Data</button>
                 </div>
             </form>
