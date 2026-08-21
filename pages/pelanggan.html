@@ -120,116 +120,121 @@
 
     <!-- ==================== LOGIKA INTERAKTIF (JAVASCRIPT) ==================== -->
     <script>
-        // 1. Ambil data lama di LocalStorage, jika kosong buatkan array data contoh pertama
-        let daftarPelanggan = JSON.parse(localStorage.getItem('database_pelanggan')) || [
-            { nama: "Andi Wijaya", wa: "0812-3456-7890", alamat: "Jl. Merdeka No. 12, Jakarta", tanggal: "2026-08-15" },
-            { nama: "Angga Saputra", wa: "0857-9876-5432", alamat: "Jl. Mawar Gg. 4, Bandung", tanggal: "2026-08-18" },
-            { nama: "Rizky Pratama", wa: "0899-2233-4455", alamat: "Jl. Sudirman No. 88, Surabaya", tanggal: "2026-08-20" }
-        ];
+    // 1. Array Data Lokal (Berperan sebagai Cache / State Frontend)
+    let daftarPelanggan = JSON.parse(localStorage.getItem('database_pelanggan')) || [
+        { nama: "Andi Wijaya", wa: "0812-3456-7890", alamat: "Jl. Merdeka No. 12, Jakarta", tanggal: "2026-08-15" },
+        { nama: "Angga Saputra", wa: "0857-9876-5432", alamat: "Jl. Mawar Gg. 4, Bandung", tanggal: "2026-08-18" },
+        { nama: "Rizky Pratama", wa: "0899-2233-4455", alamat: "Jl. Sudirman No. 88, Surabaya", tanggal: "2026-08-20" }
+    ];
 
-        // Fungsi memformat tanggal internasional ke bentuk teks Indonesia (YYYY-MM-DD -> DD Meb YYYY)
-        function formatTanggal(stringTanggal) {
-            const opsi = { day: 'numeric', month: 'short', year: 'numeric' };
-            return new Date(stringTanggal).toLocaleDateString('id-ID', opsi);
+    // Fungsi memformat tanggal internasional ke bentuk teks Indonesia
+    function formatTanggal(stringTanggal) {
+        const opsi = { day: 'numeric', month: 'short', year: 'numeric' };
+        return new Date(stringTanggal).toLocaleDateString('id-ID', opsi);
+    }
+
+    // 2. Fungsi Menampilkan Data Array ke Tabel HTML
+    function tampilkanData() {
+        const targetTabel = document.getElementById('data-tabel-pelanggan');
+        const targetTotal = document.getElementById('total-pelanggan');
+
+        targetTabel.innerHTML = '';
+        targetTotal.innerText = daftarPelanggan.length + " Orang";
+
+        if (daftarPelanggan.length === 0) {
+            targetTabel.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94a3b8;">Belum ada data pelanggan. Silakan tambah baru!</td></tr>`;
+            return;
         }
 
-        // 2. Fungsi menampilkan data array ke dalam tabel HTML
-        function tampilkanData() {
-            const targetTabel = document.getElementById('data-tabel-pelanggan');
-            const targetTotal = document.getElementById('total-pelanggan');
+        daftarPelanggan.forEach((pelanggan, index) => {
+            targetTabel.innerHTML += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td style="font-weight: 600; color: #1e293b;">${pelanggan.nama}</td>
+                    <td style="color: #475569;">${pelanggan.wa}</td>
+                    <td>${pelanggan.alamat}</td>
+                    <td>${formatTanggal(pelanggan.tanggal)}</td>
+                    <td>
+                        <a href="#modal-tambah" class="btn-action btn-edit" onclick="bukaEdit(${index})">✏️ Edit</a>
+                        <button class="btn-action btn-delete" style="border:none; cursor:pointer" onclick="hapusPelanggan(${index})">🗑️ Hapus</button>
+                    </td>
+                </tr>
+            `;
+        });
 
-            targetTabel.innerHTML = '';
-            targetTotal.innerText = daftarPelanggan.length + " Orang";
+        localStorage.setItem('database_pelanggan', JSON.stringify(daftarPelanggan));
+    }
 
-            if (daftarPelanggan.length === 0) {
-                targetTabel.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94a3b8;">Belum ada data pelanggan. Silakan tambah baru!</td></tr>`;
-                return;
-            }
+    // 3. Fungsi Tambah & Edit Data Baru (Dilengkapi Simulasi Jembatan API Backend)
+    function simpanPelanggan(event) {
+        event.preventDefault(); 
 
-            daftarPelanggan.forEach((pelanggan, index) => {
-                targetTabel.innerHTML += `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td style="font-weight: 600; color: #1e293b;">${pelanggan.nama}</td>
-                        <td style="color: #475569;">${pelanggan.wa}</td>
-                        <td>${pelanggan.alamat}</td>
-                        <td>${formatTanggal(pelanggan.tanggal)}</td>
-                        <td>
-                            <a href="#modal-tambah" class="btn-action btn-edit" onclick="bukaEdit(${index})">✏️ Edit</a>
-                            <button class="btn-action btn-delete" style="border:none; cursor:pointer" onclick="hapusPelanggan(${index})">🗑️ Hapus</button>
-                        </td>
-                    </tr>
-                `;
-            });
-            // Simpan perubahan data terbaru ke memori browser
-            localStorage.setItem('database_pelanggan', JSON.stringify(daftarPelanggan));
+        const indexEdit = document.getElementById('edit-index').value;
+        const dataBaru = {
+            nama: document.getElementById('form-nama').value,
+            wa: document.getElementById('form-wa').value,
+            alamat: document.getElementById('form-alamat').value,
+            tanggal: document.getElementById('form-tanggal').value
+        };
+
+        if (indexEdit === "") {
+            daftarPelanggan.push(dataBaru);
+            console.log("🚀 [BACKEND READY] Mengirim data pelanggan baru ke server:", JSON.stringify(dataBaru));
+            // SELETALAH PUNYA BACKEND: baris di atas tinggal diganti dengan fungsi fetch('https://api-kamu.com', {method: 'POST', body: dataBaru})
+        } else {
+            daftarPelanggan[indexEdit] = dataBaru;
+            console.log(`📝 [BACKEND READY] Mengupdate data ID indeks ke-${indexEdit} di server cloud.`);
         }
 
-        // 3. Fungsi Tambah & Edit Data Baru
-        function simpanPelanggan(event) {
-            event.preventDefault(); // Mencegah reload halaman saat submit form
+        tampilkanData();
+        tutupModal();
+    }
 
-            const indexEdit = document.getElementById('edit-index').value;
-            const dataBaru = {
-                nama: document.getElementById('form-nama').value,
-                wa: document.getElementById('form-wa').value,
-                alamat: document.getElementById('form-alamat').value,
-                tanggal: document.getElementById('form-tanggal').value
-            };
+    // 4. Fungsi Mengisi Form Saat Tombol Edit diklik
+    function bukaEdit(index) {
+        document.getElementById('modal-title').innerText = "Edit Data Pelanggan";
+        document.getElementById('edit-index').value = index;
+        document.getElementById('form-nama').value = daftarPelanggan[index].nama;
+        document.getElementById('form-wa').value = daftarPelanggan[index].wa;
+        document.getElementById('form-alamat').value = daftarPelanggan[index].alamat;
+        document.getElementById('form-tanggal').value = daftarPelanggan[index].tanggal;
+    }
 
-            if (indexEdit === "") {
-                // Jika index kosong = Tambah Data Baru
-                daftarPelanggan.push(dataBaru);
-            } else {
-                // Jika index terisi = Edit Data Lama
-                daftarPelanggan[indexEdit] = dataBaru;
-            }
-
+    // 5. Fungsi Hapus Data
+    function hapusPelanggan(index) {
+        if (confirm(`Apakah Anda yakin ingin menghapus data "${daftarPelanggan[index].nama}"?`)) {
+            console.log(`🗑️ [BACKEND READY] Memicu penghapusan data pelanggan di database server.`);
+            daftarPelanggan.splice(index, 1);
             tampilkanData();
-            tutupModal();
         }
+    }
 
-        // 4. Fungsi Mengisi Form Saat Tombol Edit diklik
-        function bukaEdit(index) {
-            document.getElementById('modal-title').innerText = "Edit Data Pelanggan";
-            document.getElementById('edit-index').value = index;
-            document.getElementById('form-nama').value = daftarPelanggan[index].nama;
-            document.getElementById('form-wa').value = daftarPelanggan[index].wa;
-            document.getElementById('form-alamat').value = daftarPelanggan[index].alamat;
-            document.getElementById('form-tanggal').value = daftarPelanggan[index].tanggal;
-        }
+    // 6. Fungsi Bersihkan Form & Paksa Tutup Pop-Up CSS :target (SUDAH FIXED)
+    function tutupModal() {
+        document.getElementById('form-pelanggan').reset();
+        document.getElementById('edit-index').value = "";
+        document.getElementById('modal-title').innerText = "Tambah Pelanggan Baru";
+        window.location.hash = '#'; // <-- WAJIB ADA AGAR POP-UP MELAYANG MAU TERTUTUP DAN HILANG DARI LAYAR
+    }
 
-        // 5. Fungsi Hapus Data
-        function hapusPelanggan(index) {
-            if (confirm(`Apakah Anda yakin ingin menghapus data "${daftarPelanggan[index].nama}"?`)) {
-                daftarPelanggan.splice(index, 1); // Hapus data dari array
-                tampilkanData();
+    // 7. Fitur Live Search Box (Pencarian Data Responsif)
+    function cariPelanggan() {
+        const keyword = document.getElementById('input-cari').value.toLowerCase();
+        const barisTabel = document.querySelectorAll('#data-tabel-pelanggan tr');
+
+        barisTabel.forEach(baris => {
+            if (baris.cells && baris.cells.length > 1) {
+                const nama = baris.cells[1].innerText.toLowerCase(); 
+                const wa = baris.cells[2].innerText.toLowerCase();   
+                
+                if (nama.includes(keyword) || wa.includes(keyword)) {
+                    baris.style.display = ""; 
+                } else {
+                    baris.style.display = "none"; 
+                }
             }
-        }
+        });
+    }
 
-        // 6. Fungsi Bersihkan Form saat tutup/batal
-        function tutupModal() {
-            document.getElementById('form-pelanggan').reset();
-            document.getElementById('edit-index').value = "";
-            document.getElementById('modal-title').innerText = "Tambah Pelanggan Baru";
-        }
-
-        // GANTI FUNGSI cariPelanggan() LAMA KAMU DENGAN KODE DI BAWAH INI
-function cariPelanggan() {
-    const keyword = document.getElementById('input-cari').value.toLowerCase();
-    const barisTabel = document.querySelectorAll('#data-tabel-pelanggan tr');
-
-    barisTabel.forEach(baris => {
-        // Memastikan baris memiliki kolom data sebelum membaca teksnya
-        if (baris.cells && baris.cells.length > 1) {
-            const nama = baris.cells[1].innerText.toLowerCase(); // Kolom ke-2 (Nama Lengkap)
-            const wa = baris.cells[2].innerText.toLowerCase();   // Kolom ke-3 (Nomor WhatsApp)
-            
-            if (nama.includes(keyword) || wa.includes(keyword)) {
-                baris.style.display = ""; // Munculkan jika cocok
-            } else {
-                baris.style.display = "none"; // Sembunyikan jika tidak cocok
-            }
-        }
-    });
-}
+    window.onload = tampilkanData;
+</script>
