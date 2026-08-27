@@ -4,17 +4,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Pelanggan - Zikra Service Laptop</title>
-    <!-- Menghubungkan ke file style luar yang sudah kita buat -->
-    <link rel="stylesheet" href="../style.css">
+    <title>Portal Pelanggan - Zikra Service Laptop</title>
+    <!-- Menghubungkan ke file style luar -->
+    <link rel="stylesheet" href="style.css">
 
     <style>
-        /* CSS Khusus Tambahan untuk Dashboard User (Biar tidak merusak style admin) */
+        /* ==================== RESET & OVERRIDE UNTUK NAVBAR USER ==================== */
+        body {
+            display: block; /* Mengubah flex-sidebar admin menjadi block biasa */
+            background-color: #f8fafc;
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Desain Navbar Atas Premium */
+        .navbar-user {
+            background-color: #0f172a; /* Warna gelap mewah senada dengan tema */
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand-user {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-brand-user h4 {
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        .navbar-brand-user p {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        .navbar-nav-user {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-item-user {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item-user:hover, .nav-item-user.active {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.08);
+        }
+
+        .nav-item-logout-user {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item-logout-user:hover {
+            color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.08);
+        }
+
+        /* Menghapus pengaruh margin-left sidebar admin di area konten */
+        .main-content-user {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Penyesuaian Kotak Pelacakan agar Lebih Luas di Tengah */
         .search-track-box {
             background: #ffffff;
-            padding: 30px;
+            padding: 35px;
             border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
             margin-bottom: 30px;
         }
 
@@ -37,6 +120,7 @@
             border-radius: 10px;
             font-size: 1rem;
             outline: none;
+            transition: border 0.2s;
         }
 
         .track-input-group input:focus {
@@ -45,19 +129,19 @@
 
         /* Desain Jalur Pelacakan (Timeline) */
         .timeline-wrapper {
-            display: none;
-            /* Sembunyikan dulu, muncul setelah user cari ID */
+            display: none; 
             background: #ffffff;
             padding: 40px 30px;
             border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
         }
 
         .timeline-steps {
             display: flex;
             justify-content: space-between;
             position: relative;
-            margin-top: 30px;
+            margin-top: 35px;
+            margin-bottom: 35px;
         }
 
         .timeline-steps::before {
@@ -75,7 +159,7 @@
             position: relative;
             z-index: 2;
             text-align: center;
-            width: 20%;
+            width: 25%;
         }
 
         .step-icon {
@@ -99,27 +183,21 @@
             color: #64748b;
         }
 
-        /* Kelas Aktif untuk Status yang Berjalan */
         .step-item.active .step-icon {
             background: #3b82f6;
             color: #ffffff;
             box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
         }
 
-        .step-item.active .step-text {
-            color: #1e3a8a;
-        }
+        .step-item.active .step-text { color: #1e3a8a; }
 
         .step-item.completed .step-icon {
             background: #10b981;
             color: #ffffff;
         }
 
-        .step-item.completed .step-text {
-            color: #10b981;
-        }
+        .step-item.completed .step-text { color: #10b981; }
 
-        /* Detail Perangkat */
         .device-info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -144,63 +222,53 @@
 
 <body>
 
-    <!-- 1. Menu Sidebar Kiri Khusus User -->
-    <div class="sidebar">
-        <div class="sidebar-brand">
+    <!-- 1. BAGIAN STRUKTUR NAVBAR ATAS USER -->
+    <header class="navbar-user">
+        <div class="navbar-brand-user">
             <h4>ZIKRA SERVICE</h4>
             <p>Portal Pelanggan Resmi</p>
         </div>
-        <div class="nav-menu">
-            <!-- Navigasi murni, link tombol yang salah tadi sudah dibuang -->
-            <a class="nav-link active" href="user-dashboard.html">🔍 Lacak Servis</a>
-            <a class="nav-link" href="#">💳 Riwayat Nota</a>
-            <!-- Link dicolok ke API WhatsApp resmi agar pelanggan bisa langsung chat kamu -->
-            <a class="nav-link" href="https://wa.me" target="_blank">💬 Hubungi Teknisi</a>
-            <a class="nav-link nav-link-logout" href="../index.html">🚪 Keluar</a>
-        </div>
-    </div>
+        <nav class="navbar-nav-user">
+            <a class="nav-item-user active" href="user-dashboard.html">🔍 Lacak Servis</a>
+            <a class="nav-item-user" href="#">💳 Riwayat Nota</a>
+            <a class="nav-item-user" href="https://wa.me" target="_blank">💬 Hubungi Teknisi</a>
+            <a class="nav-item-logout-user" href="index.html">🚪 Keluar</a>
+        </nav>
+    </header>
 
-    <!-- 2. Konten Sebelah Kanan -->
-    <div class="main-content">
-        <h2>Halo, Selamat Datang! 👋</h2>
-        <p style="color: #64748b; margin-top: -15px; margin-bottom: 30px;">Silakan masukkan nomor nota pengerjaan untuk
-            melacak status laptop Anda.</p>
+    <!-- 2. KONTEN UTAMA USER (TENGAH LAYAR LUAS) -->
+    <main class="main-content-user">
+        <h2 style="color: #1e293b; font-weight: 700; margin-top: 0; margin-bottom: 5px;">Halo, Selamat Datang! 👋</h2>
+        <p style="color: #64748b; margin-top: 0; margin-bottom: 30px; font-size: 0.95rem;">Silakan masukkan nomor nota pengerjaan untuk melacak status laptop Anda secara real-time.</p>
 
-        <!-- Kotak Pencarian / Pelacakan Nota -->
+        <!-- Kotak Pelacakan Nota -->
         <div class="search-track-box">
             <h3>Lacak Perangkat Anda</h3>
             <form onsubmit="lacakNota(event)">
                 <div class="track-input-group">
-                    <input type="text" id="id-nota-input" placeholder="Masukkan ID Nota Servis Anda (Contoh: SRV001)"
-                        required>
-                    <button type="submit" class="btn-primary-custom"
-                        style="padding: 14px 28px; border-radius: 10px;">Cari Data</button>
+                    <input type="text" id="id-nota-input" placeholder="Masukkan ID Nota Servis Anda (Contoh: SRV001)" required>
+                    <button type="submit" class="btn-primary-custom" style="padding: 14px 28px; border-radius: 10px;">Cari Data</button>
                 </div>
             </form>
         </div>
 
         <!-- Tampilan Hasil Pelacakan (Timeline Track) -->
         <div id="tracking-result" class="timeline-wrapper">
-            <h3 style="margin-top:0; color:#1e293b;">Status Pengerjaan: <span id="txt-id-nota"
-                    style="color:#3b82f6;">SRV001</span></h3>
-
+            <h3 style="margin-top:0; color:#1e293b;">Status Pengerjaan: <span id="txt-id-nota" style="color:#3b82f6;">SRV001</span></h3>
+            
             <div class="timeline-steps">
-                <!-- Tahap 1 -->
                 <div id="step-1" class="step-item">
                     <div class="step-icon">📥</div>
                     <div class="step-text">Diterima</div>
                 </div>
-                <!-- Tahap 2 -->
                 <div id="step-2" class="step-item">
                     <div class="step-icon">🔬</div>
                     <div class="step-text">Pengecekan</div>
                 </div>
-                <!-- Tahap 3 -->
                 <div id="step-3" class="step-item">
                     <div class="step-icon">⏳</div>
                     <div class="step-text">Diperbaiki</div>
                 </div>
-                <!-- Tahap 4 -->
                 <div id="step-4" class="step-item">
                     <div class="step-icon">✅</div>
                     <div class="step-text">Selesai</div>
@@ -227,26 +295,25 @@
                 </div>
             </div>
         </div>
+    </main>
 
-    </div>
-
-    <!-- ==================== JAVASCRIPT CONNECT CLOUD DB SUPABASE ==================== -->
-    <!-- 1. Alamat CDN Pustaka Supabase SDK yang Benar dan Lengkap -->
-    <script src="https://unpkg.com"></script>
-
-    <script>
-        // Kunci Koneksi Cloud Proyek Kamu
+    <!-- ==================== JAVASCRIPT LOGIC (FIXED) ==================== -->
+    <!-- 1. Pustaka SDK Supabase Resmi (Link Lengkap) -->
+    <script src="https://unpkg.com">
+    
+        // 2. Kunci Koneksi Cloud Proyek Zikra Service
         const SUPABASE_URL = "https://htrykbwlqqpeicnkfwoh.supabase.co";
         const SUPABASE_KEY = "sb_publishable_g04GowcgG4rcSzYZ4ptN5A_aE_MoKzl";
         const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // Fungsi Pelacakan Real-time Menembak Cloud DB
+        // 3. Fungsi Utama Pelacakan Nota
         async function lacakNota(event) {
-            event.preventDefault();
+            event.preventDefault(); // Mencegah halaman reload otomatis
+            
             const inputNota = document.getElementById('id-nota-input').value.trim().toUpperCase();
-            const boxHasil = document.getElementById('tracking-result');
+            const boxHasil = document.getElementById('tracking-result'); // Deklarasi wadah hasil
 
-            // Simulasi data dummy interaktif untuk uji coba visual awal
+            // Wadah Data Tiruan Interaktif (Wajib Ada)
             const dataDummyServis = {
                 "SRV001": { laptop: "Asus X441S", keluhan: "Mati Total (Kena Air)", teknisi: "Budi Santoso", biaya: "Rp350.000", status: "proses" },
                 "SRV002": { laptop: "Acer Aspire One", keluhan: "Keyboard Error Sebagian", teknisi: "Fajar Ramadhan", biaya: "Rp250.000", status: "selesai" },
@@ -255,31 +322,32 @@
 
             const dataUnit = dataDummyServis[inputNota];
 
+            // Validasi jika nota tidak terdaftar
             if (!dataUnit) {
                 alert(`ID Nota ${inputNota} tidak ditemukan. Silakan cek kembali penulisan nomor nota Anda.`);
                 boxHasil.style.display = "none";
                 return;
             }
 
-            // Pasang Informasi teks data perangkat ke layar
+            // Suntik teks data ke halaman HTML
             document.getElementById('txt-id-nota').innerText = inputNota;
             document.getElementById('txt-laptop').innerText = dataUnit.laptop;
             document.getElementById('txt-teknisi').innerText = dataUnit.teknisi;
             document.getElementById('txt-keluhan').innerText = dataUnit.keluhan;
             document.getElementById('txt-biaya').innerText = dataUnit.biaya;
 
-            // Bersihkan semua kelas status lama di timeline
+            // Bersihkan sisa warna lampu indikator lama
             document.querySelectorAll('.step-item').forEach(el => el.classList.remove('active', 'completed'));
 
-            // Mengambil elemen bulatan indikator pelacakan
+            // Ambil elemen bulatan timeline
             const s1 = document.getElementById('step-1');
             const s2 = document.getElementById('step-2');
             const s3 = document.getElementById('step-3');
             const s4 = document.getElementById('step-4');
 
-            s1.classList.add('completed'); // Tahap 1 (Diterima) otomatis selesai saat nota ada
+            s1.classList.add('completed'); // Tahap 1 otomatis kelar
 
-            // Logika pengaturan nyala lampu indikator sesuai status pengerjaan (SUDAH LENGKAP)
+            // Logika penyalaan lampu status timeline yang presisi
             if (dataUnit.status === "pengecekan") {
                 s2.classList.add('active');
             } else if (dataUnit.status === "proses") {
@@ -291,13 +359,7 @@
                 s4.classList.add('completed');
             }
 
-            // Memunculkan kotak panel pelacakan secara utuh ke layar
+            // Buka tirai kotak pelacakan bawah agar muncul di layar
             boxHasil.style.display = "block";
         }
     </script>
-
-    <!-- Taruh di bagian footer paling bawah web depan kamu -->
-    <footer style="text-align: center; padding: 20px; color: #64748b;">
-        <p>© 2026 Zikra Service Laptop. All rights reserved.</p>
-        <a href="index.html" style="color: #cbd5e1; text-decoration: none; font-size: 0.8rem;">Portal Kelola Staff</a>
-    </footer>
