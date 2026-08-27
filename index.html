@@ -222,39 +222,46 @@
 
 <body>
 
-    <!-- 1. BAGIAN STRUKTUR NAVBAR ATAS USER -->
+    <!-- 1. NAVBAR ATAS USER -->
     <header class="navbar-user">
         <div class="navbar-brand-user">
             <h4>ZIKRA SERVICE</h4>
             <p>Portal Pelanggan Resmi</p>
         </div>
-            <nav class="navbar-nav-user">
-            <a class="nav-item-user active" href="index.html">🔍 Lacak Servis</a>
+        <nav class="navbar-nav-user">
+            <a class="nav-item-user active" href="index.html">🏠 Home</a>
+            <a class="nav-item-user" href="#" onclick="bukaFiturLacak()">🔍 Lacak Servis</a>
             <a class="nav-item-user" href="#">💳 Riwayat Nota</a>
-            <a class="nav-link" href="https://wa.me" target="_blank">💬 Hubungi Teknisi</a>
-            <a class="nav-item-logout-user" href="masuk-staff-zikra.html">🚪 Keluar</a>
+            <a class="nav-item-user" href="https://wa.me" target="_blank">💬 Hubungi Teknisi</a>
         </nav>
     </header>
 
-    <!-- 2. KONTEN UTAMA USER (TENGAH LAYAR LUAS) -->
+    <!-- 2. KONTEN UTAMA USER -->
     <main class="main-content-user">
-        <h2 style="color: #1e293b; font-weight: 700; margin-top: 0; margin-bottom: 5px;">Halo, Selamat Datang! 👋</h2>
-        <p style="color: #64748b; margin-top: 0; margin-bottom: 30px; font-size: 0.95rem;">Silakan masukkan nomor nota pengerjaan untuk melacak status laptop Anda secara real-time.</p>
+        
+        <!-- Kondisi 1: Banner Info Hanya Lihat-lihat -->
+        <div class="welcome-banner" id="banner-welcome">
+            <h2>Selamat Datang di Zikra Service 👋</h2>
+            <p>Kami melayani perbaikan laptop kilat, ganti sparepart original, dan install software dengan garansi terpercaya. Ingin tahu sejauh mana perbaikan laptop Anda?</p>
+            <!-- Klik tombol ini untuk memicu Kondisi 2 (Input Nota) -->
+            <button class="btn-lacak-sekarang" onclick="bukaFiturLacak()">⚡ Mulai Lacak Status Nota</button>
+        </div>
 
-        <!-- Kotak Pelacakan Nota -->
-        <div class="search-track-box">
-            <h3>Lacak Perangkat Anda</h3>
+        <!-- Kondisi 2: Kotak Pelacakan Nota (Muncul setelah tombol diklik) -->
+        <div class="search-track-box" id="kotak-lacak">
+            <h3 style="margin-bottom:5px;">Pelacakan Perangkat Real-Time</h3>
+            <p style="margin:0 0 15px 0; color:#64748b; font-size:0.9rem;">Masukkan ID Nota servis yang tertera pada kuitansi fisik Anda.</p>
             <form onsubmit="lacakNota(event)">
                 <div class="track-input-group">
-                    <input type="text" id="id-nota-input" placeholder="Masukkan ID Nota Servis Anda (Contoh: SRV001)" required>
-                    <button type="submit" class="btn-primary-custom" style="padding: 14px 28px; border-radius: 10px;">Cari Data</button>
+                    <input type="text" id="id-nota-input" placeholder="Contoh: SRV001, SRV002, SRV003" required>
+                    <button type="submit" class="btn-primary-custom" style="padding: 14px 28px; border-radius: 10px; cursor:pointer;">Cari Data</button>
                 </div>
             </form>
         </div>
 
-        <!-- Tampilan Hasil Pelacakan (Timeline Track) -->
+        <!-- Tampilan Jalur Lintasan Status Hasil Tracking -->
         <div id="tracking-result" class="timeline-wrapper">
-            <h3 style="margin-top:0; color:#1e293b;">Status Pengerjaan: <span id="txt-id-nota" style="color:#3b82f6;">SRV001</span></h3>
+            <h3 style="margin-top:0; color:#1e293b;">Nota ID: <span id="txt-id-nota" style="color:#3b82f6;">—</span></h3>
             
             <div class="timeline-steps">
                 <div id="step-1" class="step-item">
@@ -275,7 +282,6 @@
                 </div>
             </div>
 
-            <!-- Detail Spesifikasi Informasi Unit -->
             <div class="device-info-grid">
                 <div>
                     <div class="info-label">Jenis Laptop</div>
