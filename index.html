@@ -313,20 +313,21 @@
         const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         // 3. Fungsi Utama Pelacakan Nota
-        async function lacakNota(event) {
-            event.preventDefault(); // Mencegah halaman reload otomatis
-            
+        function bukaFiturLacak() {
+            document.getElementById('kotak-lacak').style.display = "block";
+            document.getElementById('id-nota-input').focus();
+            document.getElementById('kotak-lacak').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        event.preventDefault();
             const inputNota = document.getElementById('id-nota-input').value.trim().toUpperCase();
-            const boxHasil = document.getElementById('tracking-result'); // Deklarasi wadah hasil
-
-            // Wadah Data Tiruan Interaktif (Wajib Ada)
-            const dataDummyServis = {
-                "SRV001": { laptop: "Asus X441S", keluhan: "Mati Total (Kena Air)", teknisi: "Budi Santoso", biaya: "Rp350.000", status: "proses" },
-                "SRV002": { laptop: "Acer Aspire One", keluhan: "Keyboard Error Sebagian", teknisi: "Fajar Ramadhan", biaya: "Rp250.000", status: "selesai" },
-                "SRV003": { laptop: "Lenovo Ideapad", keluhan: "Stuck Logo Blue Screen", teknisi: "Dedi Kurniawan", biaya: "Rp300.000", status: "pengecekan" }
-            };
-
             const dataUnit = dataDummyServis[inputNota];
+
+            document.getElementById('txt-id-nota').innerText = inputNota;
+            document.getElementById('txt-laptop').innerText = dataUnit.laptop;
+
+            // ... (menyuntikkan teks keluhan, teknisi, dan biaya) ...
+            document.querySelectorAll('.step-item').forEach(el => el.classList.remove('active', 'completed'));
 
             // Validasi jika nota tidak terdaftar
             if (!dataUnit) {
@@ -351,21 +352,20 @@
             const s3 = document.getElementById('step-3');
             const s4 = document.getElementById('step-4');
 
-            s1.classList.add('completed'); // Tahap 1 otomatis kelar
+            s1.classList.add('completed'); // Tahap 1 (Diterima) otomatis langsung hijau
 
-            // Logika penyalaan lampu status timeline yang presisi
             if (dataUnit.status === "pengecekan") {
-                s2.classList.add('active');
+                s2.classList.add('active'); // Tahap 2 menyala biru berkedip
             } else if (dataUnit.status === "proses") {
-                s2.classList.add('completed');
-                s3.classList.add('active');
+                s2.classList.add('completed'); // Tahap 2 berubah jadi hijau
+                s3.classList.add('active');    // Tahap 3 menyala biru
             } else if (dataUnit.status === "selesai") {
                 s2.classList.add('completed');
                 s3.classList.add('completed');
-                s4.classList.add('completed');
+                s4.classList.add('completed'); // Semua tahapan sukses berubah jadi hijau penuh
             }
 
-            // Buka tirai kotak pelacakan bawah agar muncul di layar
             boxHasil.style.display = "block";
-        }
+            boxHasil.scrollIntoView({ behavior: 'smooth' });
+
     </script>
